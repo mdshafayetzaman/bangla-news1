@@ -18,8 +18,8 @@ const NabLinks = async () => {
   const filterNavs = navs.filter((n: { scrapable: boolean }) => n.scrapable)
 
   return (
-    <div className="flex items-center justify-center gap-7 whitespace-nowrap">
-      <Link href={'/'}>হোম</Link>
+    <div className="w-full max-w-7xl mx-auto flex items-center justify-center gap-7 whitespace-nowrap">
+      <Link href="/">হোম</Link>
       {filterNavs.map((n: { slug: string; title: string }, i: number) => (
         <Link key={i} href={n.slug}>
           {n.title}
