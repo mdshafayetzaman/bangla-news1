@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 interface IData {
   slug: string
   title: string
@@ -9,19 +10,19 @@ interface IData {
 
 const NabLinks = async () => {
   const response = await fetch('https://news-api-v2.vercel.app/api/categories')
+
   const data = await response.json()
 
+  const navs: IData[] = data.data
 
-
-  const navs = data.data
-
-  const filterNavs = navs.filter((n: { scrapable: boolean }) => n.scrapable)
+  const filterNavs = navs.filter((n) => n.scrapable)
 
   return (
-    <div className="w-full max-w-7xl mx-auto flex items-center justify-center gap-7 whitespace-nowrap">
+    <div className="mx-auto flex w-full max-w-7xl items-center justify-center gap-7 whitespace-nowrap">
       <Link href="/">হোম</Link>
-      {filterNavs.map((n: { slug: string; title: string }, i: number) => (
-        <Link key={i} href={n.slug}>
+
+      {filterNavs.map((n) => (
+        <Link key={n.slug} href={`/category/${n.slug}`}>
           {n.title}
         </Link>
       ))}
