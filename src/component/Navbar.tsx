@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import NabLinks from './NabLinks'
+import UserInFo from './UserInFo'
 
 export default function Navbar() {
   const date = new Date()
@@ -29,21 +30,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
-          <Link
-            href="/sign-in"
-            className="rounded-lg px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-red-50 hover:text-red-700 sm:px-4"
-          >
-            Sign In
-          </Link>
-
-          <Link
-            href="/sign-up"
-            className="rounded-lg bg-red-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-red-800 hover:shadow-md sm:px-5"
-          >
-            Sign Up
-          </Link>
-        </div>
+        <UserInFo></UserInFo>
       </nav>
 
       <div className="border-t border-gray-100 bg-gray-50">

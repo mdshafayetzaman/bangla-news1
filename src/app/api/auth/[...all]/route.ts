@@ -1,5 +1,6 @@
-import { createAuthClient } from 'better-auth/react'
 
-export const authClient = createAuthClient({
-  baseURL: process.env.MONGODB_URI,
-})
+import { auth } from '@/app/lib/auth'
+import { toNextJsHandler } from 'better-auth/next-js'
+
+export const { POST, GET } = toNextJsHandler(auth)
+

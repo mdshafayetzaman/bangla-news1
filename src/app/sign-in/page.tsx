@@ -1,3 +1,4 @@
+
 'use client'
 
 import {
@@ -9,24 +10,41 @@ import {
   Link,
   TextField,
 } from '@heroui/react'
+import { authClient } from '../lib/client'
+import { useRouter } from 'next/navigation'
 
 const SignIn = () => {
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter()
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget)
 
-    const email = formData.get('email')
-    const password = formData.get('password')
+    const email = String(formData.get('email') || '')
+    const password = String(formData.get('password') || '')
 
-    console.log(email, password)
+    const { data, error } = await authClient.signIn.email({
+      email,
+      password,
+    })
+
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    console.log(data)
+
+    router.push('/')
+    router.refresh()
   }
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4">
-      <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-blue-600/30 blur-3xl" />
-      <div className="absolute -bottom-32 -right-32 h-96 w-96 animate-pulse rounded-full bg-purple-600/30 blur-3xl" />
-      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+      <div className="absolute -top-32 -left-32 h-96 w-96 animate-pulse rounded-full bg-blue-600/30 blur-3xl" />
+      <div className="absolute -right-32 -bottom-32 h-96 w-96 animate-pulse rounded-full bg-purple-600/30 blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
 
       <div className="relative w-full max-w-md animate-[fadeIn_.6s_ease-out]">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/40 backdrop-blur-xl transition duration-500 hover:border-white/20">
@@ -117,3 +135,4 @@ const SignIn = () => {
 }
 
 export default SignIn
+
